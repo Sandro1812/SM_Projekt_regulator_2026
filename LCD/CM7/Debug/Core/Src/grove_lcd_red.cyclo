@@ -1,0 +1,8 @@
+../Core/Src/grove_lcd_red.c:26:13:LCD_SendCmd	1
+../Core/Src/grove_lcd_red.c:31:13:LCD_SendData	1
+../Core/Src/grove_lcd_red.c:36:13:LED_SetReg	1
+../Core/Src/grove_lcd_red.c:43:6:GroveLCD_Init	1
+../Core/Src/grove_lcd_red.c:64:6:GroveLCD_Clear	1
+../Core/Src/grove_lcd_red.c:69:6:GroveLCD_SetCursor	2
+../Core/Src/grove_lcd_red.c:74:6:GroveLCD_Print	2
+../Core/Src/grove_lcd_red.c:80:6:GroveLCD_SetBacklight	1
