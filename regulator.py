@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 1. WCZYTANIE DANYCH
+# WCZYTANIE DANYCH
 try:
     df = pd.read_csv("pomiar_grzania.csv")
     t_measured = df["Czas [s]"].values
@@ -18,8 +18,7 @@ except FileNotFoundError:
     print("Błąd: Nie znaleziono pliku pomiar_grzania.csv!")
     exit()
 
-# 2. GENEROWANIE ODPOWIEDZI MODELOWEJ (TEORETYCZNEJ)
-# Założenia: start 22°C, cel 60°C, stała czasowa tau=30s
+# GENEROWANIE ODPOWIEDZI MODELOWEJ (teoretycznej)
 T_env = temp_measured[0]
 T_target = 47.0
 tau = 315.0
@@ -29,10 +28,9 @@ temp_model = T_env + (T_target - T_env) * (1 - np.exp(-t_measured / tau))
 error = temp_model - temp_measured
 
 # 4. REGULATOR PID (Symulacja)
-# Parametry, które będziesz musiał dobrać (tuning):
-Kp = 2.0  # Wzmocnienie proporcjonalne
-Ki = 0.5  # Wzmocnienie całkujące
-Kd = 0.1  # Wzmocnienie różniczkujące
+Kp = 2.0
+Ki = 0.5
+Kd = 0.1
 
 pid_output = []
 integral = 0

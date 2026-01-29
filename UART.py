@@ -3,34 +3,32 @@ import struct
 import sys
 
 # --- KONFIGURACJA ---
-# Sprawdź numer portu w Menedżerze Urządzeń (np. COM3, COM4)
 PORT = 'COM3'
 BAUD_RATE = 115200
 
 
 def main():
     try:
-        # Otwarcie portu UART
+        # otwarcie portu UART
         ser = serial.Serial(PORT, BAUD_RATE, timeout=1)
         print(f"Połączono z {PORT}. Wpisz wartość setpoint (np. 36.5) i naciśnij Enter.")
         print("Wpisz 'exit', aby zakończyć.")
 
         while True:
-            # Pobieranie danych z terminala
+            # pobieranie danych z terminala
             user_input = input("Podaj setpoint > ")
 
             if user_input.lower() == 'exit':
                 break
 
             try:
-                # Konwersja tekstu na liczbę zmiennoprzecinkową
+                # konwersja tekstu na liczbę zmiennoprzecinkową
                 value = float(user_input)
 
-                # Pakowanie floata do 4 bajtów (Little-endian, format IEEE 754)
-                # '<f' jest kluczowe, bo STM32 tak przechowuje floaty w pamięci
+                # pakowanie floata do 4 bajtów
                 data = struct.pack('<f', value)
 
-                # Wysyłka surowych bajtów
+                # wysyłka surowych bajtów
                 ser.write(data)
 
                 print(f"Wysłano: {value} | Bajty (hex): {data.hex().upper()}")

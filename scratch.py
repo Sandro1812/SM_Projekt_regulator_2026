@@ -2,7 +2,7 @@ import serial
 import matplotlib.pyplot as plt
 import csv
 import time
-import struct  # Biblioteka do obsługi danych binarnych
+import struct
 
 # --- KONFIGURACJA ---
 SERIAL_PORT = 'COM3'
@@ -32,20 +32,19 @@ try:
         print(f"Rozpoczęto rejestrację binarną do pliku {FILE_NAME}...")
 
         while True:
-            # Czekamy, aż w buforze będą co najmniej 4 bajty (tyle zajmuje float)
+            # oczekiwanie, aż w buforze będą co najmniej 4 bajty
             if ser.in_waiting >= 4:
                 raw_bytes = ser.read(4)
 
                 try:
-                    # Dekodujemy 4 bajty na liczbę float
-                    # '<f' oznacza: Little Endian (standard STM32), typ float
+                    # dekodowanie 4 bajtów na liczbę float
                     temp = struct.unpack('<f', raw_bytes)[0]
 
                     current_time = time.time() - start_time
                     timestamps.append(current_time)
                     temperatures.append(temp)
 
-                    # Zapis do CSV
+                    # zapis do CSV
                     with open(FILE_NAME, mode='a', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerow([round(current_time, 2), temp])
